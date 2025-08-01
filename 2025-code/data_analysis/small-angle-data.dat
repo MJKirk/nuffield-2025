@@ -1,0 +1,7 @@
+# FCCee small angle Bhabha scattering data
+# Bin lower edge [radians], bin upper edge [radians], number of events, uncertainty on number of events
+0.064  0.0684 1.5101e10 1.417e7
+0.0684 0.0728 1.1673e10 1.2312e7
+0.0728 0.0772 9.1549e9  9.7646e6
+0.0772 0.0816 7.2812e9  8.4938e6
+0.0816 0.086  5.8733e9  5.6165e6
