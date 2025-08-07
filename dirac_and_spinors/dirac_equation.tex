@@ -1,0 +1,145 @@
+\documentclass[a4paper,11pt]{article}
+
+% General LaTeX stuff
+\usepackage{geometry} % More reasonable margins
+\usepackage[utf8]{inputenc} % utf8 input good for non-ascii characters
+\usepackage[T1]{fontenc} % Good for hyphenating non-ascii characters
+\usepackage{lmodern}
+\usepackage[british]{babel}
+\usepackage{graphicx}
+\usepackage[pdfusetitle]{hyperref}
+
+% Packages for nicer appearance
+\usepackage{microtype} % Improves typesetting
+\usepackage[margin=15mm,format=hang]{caption} % Format captions
+\usepackage{xfrac} % Nice small fractions
+% Ensure all figures are centred by default
+\makeatletter
+\g@addto@macro\@floatboxreset\centering
+\makeatother
+
+% Better maths support
+\usepackage[intlimits]{amsmath} % intlimits option places integration limits above and below the integration sign
+\usepackage{amssymb} % More maths symbols, e.g. \lesssim
+\usepackage{bm} % More bold maths symbols
+\usepackage{bbm} % More blackboard bold characters, via \mathbbm. Mostly for blackboard bold 1
+\numberwithin{equation}{section} % Reset equation numbers in each section
+\allowdisplaybreaks % Allow long maths to be broken over multiple pages
+
+% References and citations
+\usepackage{cite} % Combine multiple citations in range
+\usepackage[capitalise]{cleveref} % Add automatic reference type text via \cref command
+\creflabelformat{equation}{\textup{#2#1#3}} % Removes bracket around equation numbers when referencing
+
+% Better tables
+\usepackage{booktabs} % Better tables
+\usepackage{array} % Allows us to define custom column types for tables
+\newcolumntype{L}{>{$}l<{$}} % A left aligned maths column type
+
+% Physics packages
+\usepackage[italic]{hepnames} % Add particle name macros (e.g. \PBs)
+% Remove superscript 0 from various meson macros
+\renewcommand{\PBs}{\HepParticle{\PB}{\Pqs}{}\xspace}
+\renewcommand{\APBs}{\HepAntiParticle{\PB}{\Pqs}{}\xspace}
+\renewcommand{\PBd}{\HepParticle{\PB}{\Pqd}{}\xspace}
+\usepackage{braket} % Adds Dirac bra-ket notation
+\usepackage{slashed} % Adds Dirac slash notation
+\usepackage{siunitx} % Add support for units
+\sisetup{
+	separate-uncertainty, % uncertainties with +- symbol,
+	range-phrase = --, % ranges with dash
+	range-units = single % only write unit once
+}
+\DeclareSIUnit\fb{\femto\barn}
+\DeclareSIUnit\invps{\ps^{-1}}
+\usepackage{suffix} % Allows us to define a starred command, for CKM macro later
+
+% General maths macros
+% Redefine Re and Im macros
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\dfk}{\frac{d^4 k}{(2\pi)^4}}
+\newcommand{\ddk}{\frac{d^d k}{(2\pi)^d}}
+\newcommand{\dfx}{\mathop{d^4 x}}
+\newcommand{\BigO}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
+
+% General HEP macros
+\newcommand{\Hamiltonian}{\ensuremath{\mathcal{H}}\xspace}
+\newcommand{\Lagrangian}{\ensuremath{\mathcal{L}}\xspace}
+\newcommand{\hc}{\text{h.c.}}
+\newcommand{\Nc}{\ensuremath{N_c}\xspace}
+
+% Flavour macros
+\newcommand{\DeltaM}{\Delta M}
+\newcommand{\DeltaG}{\Delta \Gamma}
+\newcommand{\asl}{a_\text{sl}}
+% Define macros for CKM elements -- the empty superscript on non-starred ensures the subscripts on starred and unstarred are level.
+\newcommand{\V}[1]{\ensuremath{V_{#1}^{}}}
+\WithSuffix\newcommand\V*[1]{\ensuremath{V_{#1}^*}}
+
+\author{Matthew Kirk}
+\title{Solutions of the Dirac equation}
+
+\begin{document}
+\maketitle
+
+
+The Dirac equation is
+\begin{equation}
+\left( i \gamma^0 \frac{\partial}{\partial t} - \sum_{i=1}^{3} \gamma^i \frac{\partial}{\partial x_i} - m \mathbbm{1}_{4x4} \right) \psi = 0 \,,
+\end{equation}
+where $\partial / \partial x_1 = \partial / \partial x, \partial / \partial x_2 = \partial / \partial y, \partial / \partial x_3 = \partial / \partial z$, and $\mathbbm{1}_{4x4}$ is a 4x4 matrix that is all zeroes except for 1's down the diagonal.
+
+In the Dirac representation, the Gamma matrices have the following form:
+
+\begin{align}
+\gamma^0 &= \begin{pmatrix}
+ 1 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 0 \\
+ 0 & 0 & -1 & 0 \\
+ 0 & 0 & 0 & -1 \\
+\end{pmatrix}
+\\
+\gamma^1 &= \begin{pmatrix}
+ 0 & 0 & 0 & 0 \\
+ 0 & 0 & 1 & 0 \\
+ 0 & -1 & 0 & 0 \\
+ -1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\\
+\gamma^2 &= \begin{pmatrix}
+ 0 & 0 & 0 & -i \\
+ 0 & 0 & i & 0 \\
+ 0 & i & 0 & 0 \\
+ -i & 0 & 0 & 0 \\
+\end{pmatrix}
+\\
+\gamma^3 &= \begin{pmatrix}
+ 0 & 0 & 1 & 0 \\
+ 0 & 0 & 0 & -1 \\
+ -1 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 0 \\
+\end{pmatrix}
+\end{align}
+\textbf{Exercise:} Show that
+\begin{equation}
+\psi_1 = \sqrt{E+m} \begin{pmatrix} 1 \\ 0 \\ \frac{p}{E+m} \\ 0 \end{pmatrix} \times e^{-i (E t - p z)}
+\end{equation}
+is a solution of the Dirac equation, as long as $E^2 = p^2 + m^2$.
+
+
+In fact, there are four independent solutions of the Dirac equation.
+In addition to the one above, there are also the following solutions:
+\begin{align}
+\psi_2 &= \sqrt{E+m} \begin{pmatrix} 0 \\ 1 \\ 0 \\ \frac{-p}{E+m} \end{pmatrix} \times e^{-i (E t - p z)}
+\\
+\psi_3 &= \sqrt{E+m} \begin{pmatrix} 0 \\ \frac{-p}{E+m} \\ 0 \\ 1 \end{pmatrix} \times e^{i (E t - p z)}
+\\
+\psi_4 &= \sqrt{E+m} \begin{pmatrix} \frac{p}{E+m} \\ 0 \\ 1 \\ 0 \end{pmatrix} \times e^{i (E t  -p z)}
+\end{align}
+
+% \textbf{Bonus exercise 1:} Show that $\psi_1^\dagger \psi_2 = 0$
+
+\textbf{Bonus exercise:} Show that these other three are also solutions of the Dirac equation.
+
+\end{document}
