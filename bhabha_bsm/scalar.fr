@@ -1,0 +1,50 @@
+M$ModelName = "scalar";
+
+M$Information = {
+  Authors      -> {"Matthew Kirk"}, 
+  Version      -> "1.0"
+};
+
+FeynmanGauge = True;
+
+M$ClassesDescription = {
+S[101] == {
+    ClassName        -> scalar,
+    SelfConjugate    -> True,
+    Mass             -> Mscalar,
+    PropagatorLabel  -> "S"
+  }
+
+};
+
+M$Parameters = {
+
+gNP == {
+    ParameterType     -> Internal, 
+    ComplexParameter  -> True
+},
+
+Mscalar == {
+    ParameterType     -> Internal, 
+    ComplexParameter  -> False
+}
+
+
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+
+Lscalarkin := Block[{mu},
+(1/2) * DC[scalar,mu] DC[scalar,mu] - (1/2)*Mscalar^2 scalar^2
+ ];
+
+Lscalaryuk := Block[{sp1,ii,mu,yuk,ff},
+  yuk = -gNP LLbar[sp1,2,ff].lR[sp1,ff] scalar
+        ;
+  yuk+HC[yuk]
+ ];
+
+LNP := Lscalarkin + Lscalaryuk;

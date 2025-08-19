@@ -1,0 +1,56 @@
+M$ModelName = "Zprime";
+
+M$Information = {
+  Authors      -> {"Matthew Kirk"}, 
+  Version      -> "1.0"
+};
+
+FeynmanGauge = True;
+
+M$ClassesDescription = {
+V[101] == {
+    ClassName        -> Zprime,
+    SelfConjugate    -> True,
+    Mass             -> MZprime,
+    PropagatorLabel  -> "Zp"
+  }
+
+};
+
+M$Parameters = {
+
+gZprimeL == {
+    ParameterType     -> Internal, 
+    ComplexParameter  -> True
+},
+
+gZprimeR == {
+    ParameterType     -> Internal,
+    ComplexParameter  -> True
+},
+
+MZprime == {
+    ParameterType     -> Internal, 
+    ComplexParameter  -> False
+}
+
+
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+
+LZprimekin := Block[{mu},
+(1/2) * DC[Zprime,mu] DC[Zprime,mu] - (1/2)*MZprime^2 Zprime[mu] Zprime[mu]
+ ];
+
+LZprimeyuk := Block[{sp1,ii,mu,yuk},
+  yuk = -gZprimeL LLbar.Ga[mu].LL Zprime[mu]
+        -gZprimeR lRbar.Ga[mu].lR Zprime[mu]
+        ;
+  yuk+HC[yuk]
+ ];
+
+LNP := LZprimekin + LZprimeyuk;
